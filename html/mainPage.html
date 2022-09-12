@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../media/favicon.ico?v=2" type="image/x-icon">
+    <title>лаб 1</title>
+    <!-- <link rel="stylesheet" type="text/css" href="../css/style.css"> -->
+    <script src="../js/Validator.js"></script>
+    <style>
+        body {
+            background: #DED4C8;
+            color: #1d1d1d;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        header {
+            font-weight: 300;
+            float: left;
+            color: #3F3F21;
+            font-size: 16px;
+        }
+
+        #sidebar {
+            float: right;
+            margin-top: -15px;
+            text-align: right;
+        }
+
+        #upper {
+            padding-bottom: 90px;
+        }
+
+
+        #heading {
+            text-align: center;
+            padding-bottom: 40px;
+            font-size: large;
+        }
+
+        #container {
+            width: 100%;
+            min-height: 86vh;
+            background-color: #DED4C8;
+            border: none;
+            padding: 10px;
+            box-sizing: border-box;
+            margin: 0px;
+        }
+
+        #content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 1%;
+        }
+
+        #form * {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        select {
+            color: #DED4C8;
+            background-color: #7C7048;
+            border-radius: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 110%;
+            text-align: center;
+        }
+
+        input[type=text] {
+            font-family: inherit;
+            font-size: 110%;
+            font-weight: 600;
+            color: #3F3F21;
+            border: 1px solid #3F3F21;
+            border-radius: 10px;
+        }
+
+        input[type=submit]:enabled,
+        button:enabled {
+            font-family: inherit;
+            font-size: 110%;
+            font-weight: 600;
+            color: #DED4C8;
+            border: none;
+            border-radius: 20px;
+            width: 80%;
+            background-color: #7C7048;
+            margin-bottom: 1%;
+            margin-top: 1%;
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+
+        #graph {
+            color: #1d1d1d;
+            transform: scale(1.2);
+        }
+
+        #table {
+            font-family: inherit;
+            border-collapse: separate;
+            letter-spacing: 1px;
+            width: 80%;
+            height: 80%;
+            background-color: #3F3F21;
+            /* border: 2px solid #3F3F21; */
+            border-top-left-radius: 20px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 30px;
+            border-bottom-left-radius: 0;
+            text-align: center;
+            margin-left: 10%;
+            margin-right: 3%;
+            margin-bottom: 1%;
+            margin-top: 0;
+        }
+
+        th {
+            font-weight: 500;
+        }
+
+        td,
+        th {
+            padding-right: 10px;
+            padding-left: 20px;
+            padding-bottom: 5px;
+            padding-top: 7px;
+        }
+
+        thead {
+            font-size: 130%;
+            color: #DED4C8;
+        }
+
+        tbody {
+            background-color: #7C7048;
+        }
+
+        line {
+            color: #343548;
+        }
+
+        polygon,
+        path {
+            stroke: #343548;
+            fill: #7C7048;
+
+        }
+
+        h2 {
+            font-weight: 700;
+            color: #3F3F21;
+
+        }
+
+        h4 {
+            font-weight: 700;
+            color: #3F3F21;
+        }
+
+
+        a:visted {
+            color: #4a4a4b;
+        }
+
+        a:link {
+            color: #7C7048;
+        }
+
+        footer {
+            position: fixed;
+            background-color: #DEC8B7;
+            width: 100%;
+            bottom: 0;
+            height: 100px;
+            border-radius: 10px;
+            text-align: center;
+            padding-top: 20px;
+            align-self: center;
+            margin: 0 -20px 0px;
+        }
+    </style>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div id="container">
+        <div id="upper">
+            <header>
+                Бегинина Анастасия Алексеевна <br> P32111 <br> Вариант 6100
+            </header>
+            <div id="sidebar">
+                <h4>Полезные ссылки</h4>
+                <a href="https://github.com"> Исходный код</a>
+            </div>
+
+        </div>
+
+        <div id="heading">
+            <h2>Лабораторная работа 1 </h2>
+        </div>
+
+        <div class="circle"></div>
+
+
+        <div id="content">
+            <div id="graph">
+                <svg width="300px" height="300px">
+                    <!-- Координатные оси -->
+                    <line x1="0" x2="300" y1="150" y2="150" stroke="#343548"></line>
+                    <line x1="150" x2="150" y1="0" y2="300" stroke="#343548"></line>
+                    <!--Стрелки-->
+                    <polygon points="150,0 145,10 155,10" stroke="#343548"></polygon>
+                    <polygon points="300,150 290,145 290,155" stroke="#343548"></polygon>
+                    <!--Прямоугольник в первой четверти-->
+                    <polygon points="150,150 150,100 250,100 250,150"></polygon>
+                    <!--Треугольник во второй четверти-->
+                    <polygon points="150,100 100,150 150,150"></polygon>
+                    <!--Четверть круга в третьей четверти-->
+                    <path d="M150,200 A50,50 90 0,1 100,150 L 150,150 Z"></path>
+
+                    <!-- Метки для значений R на оси X -->
+                    <line x1="50" x2="50" y1="145" y2="155" stroke="#343548"></line>
+                    <line x1="100" x2="100" y1="145" y2="155" stroke="#343548"></line>
+                    <line x1="200" x2="200" y1="145" y2="155" stroke="#343548"></line>
+                    <line x1="250" x2="250" y1="145" y2="155" stroke="#343548"></line>
+
+                    <!-- Метки для значений R на оси Y -->
+                    <line x1="145" x2="155" y1="50" y2="50" stroke="#343548"></line>
+                    <line x1="145" x2="155" y1="100" y2="100" stroke="#343548"></line>
+                    <line x1="145" x2="155" y1="200" y2="200" stroke="#343548"></line>
+                    <line x1="145" x2="155" y1="250" y2="250" stroke="#343548"></line>
+
+                    <!-- Подписи к осям -->
+                    <text x="290" y="140">X</text>
+                    <text x="155" y="10">Y</text>
+                    <!-- Значения R на оси X -->
+                    <text x="40" y="138">-R</text>
+                    <text x="85" y="138">-R/2</text>
+                    <text x="190" y="138">R/2</text>
+                    <text x="245" y="138">R</text>
+                    <!-- Значения R на оси Y -->
+                    <text x="162" y="54">R</text>
+                    <text x="162" y="104">R/2</text>
+                    <text x="162" y="204">-R/2</text>
+                    <text x="162" y="254">-R</text>
+                </svg>
+            </div>
+            <form novalidate name="simpleForm" action="action.php" onsubmit="return checkInp()" method="post">
+                <div id="form">
+                    <div id="values">
+                        <div id="x-value">
+                            <label for="x-value">Введите X (-5 ... 3):</label>
+                            <input type="text" class="x-text" maxlength="14" id="x-value" name="x-value"
+                                oninput="validateTextField()" required>
+                            <span class="error" aria-live="polite"></span>
+                        </div>
+                        <div id="y-value">
+                            <label for="fname" class="y-text">Выберите Y:</label>
+                            <select name="select" class="y-value" size="1" required>
+                                <option selected value="s1">-4</option>
+                                <option value="s2">-3</option>
+                                <option value="s3">-2</option>
+                                <option value="s4">-1</option>
+                                <option value="s5">-1</option>
+                                <option value="s6">0</option>
+                                <option value="s7">1</option>
+                                <option value="s8">2</option>
+                                <option value="s9">3</option>
+                                <option value="s10">4</option>
+                            </select> <br>
+                        </div>
+                        <div id="r-value">
+                            <label for="fname" class="r-text">Выберите R:</label>
+                            <select name="select" class="r-value" size="1" required>
+                                <option selected value="s1">1</option>
+                                <option value="s2">1.5</option>
+                                <option value="s3">2</option>
+                                <option value="s4">2.5</option>
+                                <option value="s5">3</option>
+                            </select> <br>
+                        </div>
+                    </div>
+                    <input type="submit" class="element" name="submit-btn" value="Подтвердить">
+            </form>
+        </div>
+    </div>
+
+    <section class="validationInfo">
+
+    </section>
+
+    <div id="tableInTotal">
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>R</th>
+                    <th>Текущее время</th>
+                    <th>Время работы скрипта</th>
+                    <th>Результат</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <footer>
+        <img src="../media/logo.png" height="80px">
+    </footer>
+    </div>
+</body>
+
+</html>
