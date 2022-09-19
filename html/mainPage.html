@@ -7,6 +7,11 @@
     <title>лаб 1</title>
     <!-- <link rel="stylesheet" type="text/css" href="../css/style.css"> -->
     <script src="../js/Validator.js"></script>
+    <script src="../js/Updater.js"></script>
+    <script src="../js/Cookies.js"></script>
+    <script src="../js/ClearTable.js"></script>
+    <script src="../js/ButtonController.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
         body {
             background: #DED4C8;
@@ -21,6 +26,11 @@
             float: left;
             color: #3F3F21;
             font-size: 16px;
+        }
+
+        ::selection {
+            background: #3F3F21;
+            color: #DED4C8;
         }
 
         #sidebar {
@@ -54,12 +64,13 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
-            gap: 1%;
+            gap: 3%;
         }
 
         #form * {
             margin-bottom: 5px;
             font-size: 16px;
+            padding-bottom: 2%;
         }
 
         select {
@@ -97,6 +108,7 @@
             padding-top: 10px;
         }
 
+
         #graph {
             color: #1d1d1d;
             transform: scale(1.2);
@@ -108,6 +120,7 @@
             letter-spacing: 1px;
             width: 80%;
             height: 80%;
+            font-size: 110%;
             background-color: #3F3F21;
             /* border: 2px solid #3F3F21; */
             border-top-left-radius: 20px;
@@ -115,32 +128,45 @@
             border-bottom-right-radius: 30px;
             border-bottom-left-radius: 0;
             text-align: center;
-            margin-left: 10%;
-            margin-right: 3%;
-            margin-bottom: 1%;
-            margin-top: 0;
+            font-weight: 450;
+            color: #DEC8B7;
         }
 
         th {
             font-weight: 500;
-        }
-
-        td,
-        th {
             padding-right: 10px;
             padding-left: 20px;
             padding-bottom: 5px;
             padding-top: 7px;
         }
 
-        thead {
+        tr:first-child {
             font-size: 130%;
+            font-weight: 600;
             color: #DED4C8;
         }
 
-        tbody {
-            background-color: #7C7048;
+        #tableInTotal {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            margin-left: 10%;
+            margin-right: 3%;
+            margin-bottom: 1%;
+            margin-top: 5%;
+
         }
+
+        #clear-btn {
+            height: fit-content;
+            float: right;
+            width: 10%;
+        }
+
+        input[type=submit]:hover {
+            background-color: #3F3F21 !important;
+        }
+
 
         line {
             color: #343548;
@@ -173,17 +199,37 @@
             color: #7C7048;
         }
 
+        .validationInfo {
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1%;
+            margin-top: 1%;
+            padding-right: 80px;
+            text-align: center;
+            font-family: inherit;
+            font-size: 20px !important;
+            color: #f24421;
+            opacity: 0;
+            transition: opacity 0.7s;
+        }
+
+        .validationInfo.show {
+            font-size: 20px !important;
+            opacity: 1;
+            transition: opacity 0.7s;
+        }
+
+
         footer {
-            position: fixed;
+            position: relative;
             background-color: #DEC8B7;
             width: 100%;
             bottom: 0;
             height: 100px;
             border-radius: 10px;
+            margin-top: 150px;
             text-align: center;
-            padding-top: 20px;
             align-self: center;
-            margin: 0 -20px 0px;
         }
     </style>
     <meta charset="utf-8">
@@ -197,7 +243,7 @@
             </header>
             <div id="sidebar">
                 <h4>Полезные ссылки</h4>
-                <a href="https://github.com"> Исходный код</a>
+                <a href="https://github.com/nastyabeggin/ITMO_web_lab1"> Исходный код</a>
             </div>
 
         </div>
@@ -252,18 +298,17 @@
                     <text x="162" y="254">-R</text>
                 </svg>
             </div>
-            <form novalidate name="simpleForm" action="action.php" onsubmit="return checkInp()" method="post">
+            <form novalidate name="simpleForm" onsubmit="update(); return false;">
                 <div id="form">
                     <div id="values">
-                        <div id="x-value">
-                            <label for="x-value">Введите X (-5 ... 3):</label>
+                        <div id="x-values">
+                            <label for="x-values">Введите X (-5 ... 3):</label>
                             <input type="text" class="x-text" maxlength="14" id="x-value" name="x-value"
                                 oninput="validateTextField()" required>
-                            <span class="error" aria-live="polite"></span>
                         </div>
                         <div id="y-value">
                             <label for="fname" class="y-text">Выберите Y:</label>
-                            <select name="select" class="y-value" size="1" required>
+                            <select id="y-values" name="select" class="y-value" name="y-value" size="1" required>
                                 <option selected value="s1">-4</option>
                                 <option value="s2">-3</option>
                                 <option value="s3">-2</option>
@@ -278,7 +323,7 @@
                         </div>
                         <div id="r-value">
                             <label for="fname" class="r-text">Выберите R:</label>
-                            <select name="select" class="r-value" size="1" required>
+                            <select id="r-values" name="select" class="r-value" size="1" required>
                                 <option selected value="s1">1</option>
                                 <option value="s2">1.5</option>
                                 <option value="s3">2</option>
@@ -289,32 +334,36 @@
                     </div>
                     <input type="submit" class="element" name="submit-btn" value="Подтвердить">
             </form>
+            <section id="validationInfo" class="validationInfo">
+
+            </section>
         </div>
     </div>
 
-    <section class="validationInfo">
 
-    </section>
 
     <div id="tableInTotal">
+        <input type="submit" class="element" id="clear-btn" value="Очистить"
+            onclick="clearTable(); changeButtonOnClick('clear-btn')">
         <table id="table">
-            <thead>
-                <tr>
-                    <th>X</th>
-                    <th>Y</th>
-                    <th>R</th>
-                    <th>Текущее время</th>
-                    <th>Время работы скрипта</th>
-                    <th>Результат</th>
-                </tr>
-            </thead>
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th>R</th>
+                <th>Текущее время</th>
+                <th>Время работы скрипта</th>
+                <th>Результат</th>
+            </tr>
+
         </table>
+
     </div>
 
+
+    </div>
     <footer>
         <img src="../media/logo.png" height="80px">
     </footer>
-    </div>
 </body>
 
 </html>
